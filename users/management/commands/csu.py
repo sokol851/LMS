@@ -13,8 +13,8 @@ class Command(BaseCommand):
             is_staff=True,
             is_superuser=True,
             is_active=True
-
         )
 
         user.set_password('12345')
         user.save()
+        print('Админ успешно создан. (admin@pow.ru - 12345)')
