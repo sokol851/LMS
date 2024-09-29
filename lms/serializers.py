@@ -6,7 +6,7 @@ from lms.models import Course, Lesson
 class LessonSerializer(serializers.ModelSerializer):
     class Meta:
         model = Lesson
-        fields = '__all__'
+        fields = "__all__"
 
 
 class CourseSerializer(serializers.ModelSerializer):
@@ -15,7 +15,13 @@ class CourseSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Course
-        fields = ('name', 'preview', 'description', 'lesson_count', 'lessons',)
+        fields = (
+            "name",
+            "preview",
+            "description",
+            "lesson_count",
+            "lessons",
+        )
 
     @staticmethod
     def get_lesson_count(instance):

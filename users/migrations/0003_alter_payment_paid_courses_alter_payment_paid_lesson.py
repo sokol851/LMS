@@ -7,19 +7,31 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('lms', '0005_remove_course_owner_remove_lesson_owner'),
-        ('users', '0002_payment'),
+        ("lms", "0005_remove_course_owner_remove_lesson_owner"),
+        ("users", "0002_payment"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='payment',
-            name='paid_courses',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, to='lms.course', verbose_name='Оплаченный курс'),
+            model_name="payment",
+            name="paid_courses",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                to="lms.course",
+                verbose_name="Оплаченный курс",
+            ),
         ),
         migrations.AlterField(
-            model_name='payment',
-            name='paid_lesson',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, to='lms.lesson', verbose_name='Оплаченный урок'),
+            model_name="payment",
+            name="paid_lesson",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                to="lms.lesson",
+                verbose_name="Оплаченный урок",
+            ),
         ),
     ]
