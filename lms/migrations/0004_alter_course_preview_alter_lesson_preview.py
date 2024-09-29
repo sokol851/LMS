@@ -6,18 +6,30 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('lms', '0003_alter_course_preview_alter_lesson_preview'),
+        ("lms", "0003_alter_course_preview_alter_lesson_preview"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='course',
-            name='preview',
-            field=models.ImageField(blank=True, default='course/non_course.png', null=True, upload_to='static/course/covers/', verbose_name='ПревьюКурса'),
+            model_name="course",
+            name="preview",
+            field=models.ImageField(
+                blank=True,
+                default="course/non_course.png",
+                null=True,
+                upload_to="static/course/covers/",
+                verbose_name="ПревьюКурса",
+            ),
         ),
         migrations.AlterField(
-            model_name='lesson',
-            name='preview',
-            field=models.ImageField(blank=True, default='lesson/non_lesson.png', null=True, upload_to='static/lesson/covers/', verbose_name='ПревьюУрока'),
+            model_name="lesson",
+            name="preview",
+            field=models.ImageField(
+                blank=True,
+                default="lesson/non_lesson.png",
+                null=True,
+                upload_to="static/lesson/covers/",
+                verbose_name="ПревьюУрока",
+            ),
         ),
     ]
