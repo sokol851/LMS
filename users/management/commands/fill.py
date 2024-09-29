@@ -1,7 +1,7 @@
 from django.core.management import BaseCommand
 
-from lms.models import Lesson, Course
-from users.models import User, Payment
+from lms.models import Course, Lesson
+from users.models import Payment, User
 
 
 class Command(BaseCommand):

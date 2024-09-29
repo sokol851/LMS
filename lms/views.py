@@ -1,6 +1,5 @@
-from django.shortcuts import render
-from rest_framework import viewsets, generics
-from rest_framework.permissions import IsAuthenticated, IsAdminUser
+from rest_framework import generics, viewsets
+from rest_framework.permissions import IsAdminUser, IsAuthenticated
 
 from lms.models import Course, Lesson
 from lms.permissions import IsModerator
