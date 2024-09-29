@@ -11,7 +11,7 @@ class LessonSerializer(serializers.ModelSerializer):
 
 class CourseSerializer(serializers.ModelSerializer):
     lesson_count = serializers.SerializerMethodField()
-    lessons = LessonSerializer(many=True)
+    lessons = LessonSerializer(many=True, read_only=True)
 
     class Meta:
         model = Course
@@ -21,6 +21,7 @@ class CourseSerializer(serializers.ModelSerializer):
             "description",
             "lesson_count",
             "lessons",
+            "owner",
         )
 
     @staticmethod

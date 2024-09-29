@@ -16,7 +16,7 @@ urlpatterns = [
     path("users/create/", UserCreateAPIView.as_view(), name="user-create"),
     path("users/<int:pk>/update/", UserUpdateAPIView.as_view(), name="user-update"),
     path(
-        "users/<int:pk>/retrieve/", UserRetrieveAPIView.as_view(), name="user-retrieve"
+        "users/<int:pk>/", UserRetrieveAPIView.as_view(), name="user-retrieve"
     ),
     path("users/<int:pk>/destroy/", UserDestroyAPIView.as_view(), name="user-destroy"),
     path(
