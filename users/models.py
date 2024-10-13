@@ -45,20 +45,14 @@ class Payment(models.Model):
 
     PAID_TYPE = ((REMITTANCE, "Перевод"), (CASH, "Наличными"))
 
-    user = models.ForeignKey(
-        User, on_delete=models.CASCADE, verbose_name="Пользователь"
-    )
+    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="Пользователь")
     data_payment = models.DateField(auto_now_add=True, verbose_name="дата оплаты")
-    paid_courses = models.ForeignKey(
-        Course, on_delete=models.SET_NULL, verbose_name="Оплаченный курс", **NULLABLE
-    )
-    paid_lesson = models.ForeignKey(
-        Lesson, on_delete=models.SET_NULL, verbose_name="Оплаченный урок", **NULLABLE
-    )
-    paid_summa = models.IntegerField(verbose_name="Сумма оплаты")
-    paid_type = models.CharField(
-        max_length=150, choices=PAID_TYPE, verbose_name="Тип оплаты"
-    )
+    paid_courses = models.ForeignKey(Course, on_delete=models.SET_NULL, verbose_name="Оплата курса", **NULLABLE)
+    paid_lesson = models.ForeignKey(Lesson, on_delete=models.SET_NULL, verbose_name="Оплата урока", **NULLABLE)
+    paid_summa = models.IntegerField(default=0, verbose_name="Сумма оплаты в рублях", **NULLABLE)
+    paid_type = models.CharField(max_length=150, choices=PAID_TYPE, verbose_name="Тип оплаты")
+    session_id = models.CharField(max_length=150, verbose_name='Сессия', **NULLABLE)
+    link = models.URLField(max_length=500, verbose_name='Cсылка на оплату', **NULLABLE)
 
     def __str__(self):
         return f"{self.user} - {self.paid_summa} ({self.data_payment})"

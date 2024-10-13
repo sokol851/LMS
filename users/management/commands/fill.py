@@ -26,7 +26,8 @@ class Command(BaseCommand):
         user_2.save()
 
         # Создаём курсы
-        course = {"id": 200, "name": "Backend", "description": "Бекенд-разработчик", "owner": User.objects.get(id=50), }
+        course = {"id": 200, "name": "Backend", "description": "Бекенд-разработчик", "owner": User.objects.get(id=50),
+                  "amount": 5000, }
         Course.objects.create(**course)
 
         # Создаём уроки
@@ -36,6 +37,7 @@ class Command(BaseCommand):
             "description": "Познакомимся с основами программирования",
             "course": Course.objects.get(pk=200),
             "owner": User.objects.get(id=50),
+            "amount": 550,
         }
 
         lesson2 = {
@@ -44,6 +46,7 @@ class Command(BaseCommand):
             "description": "Изучение",
             "course": Course.objects.get(pk=200),
             "owner": User.objects.get(id=51),
+            "amount": 750,
         }
 
         [Lesson.objects.create(**lesson) for lesson in (lesson1, lesson2)]
@@ -52,7 +55,6 @@ class Command(BaseCommand):
         payment1 = {
             "user": User.objects.get(pk=50),
             "paid_courses": Course.objects.get(pk=200),
-            "paid_lesson": Lesson.objects.get(pk=300),
             "paid_summa": 10000,
             "paid_type": "Перевод",
         }
