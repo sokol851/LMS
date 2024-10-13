@@ -1,7 +1,7 @@
 from django.contrib.auth.models import Group
 from django.urls import reverse
 from rest_framework import status
-from rest_framework.test import APITestCase, APIClient
+from rest_framework.test import APITestCase
 
 from lms.models import Course, Lesson, Subscription
 from users.models import User
@@ -31,6 +31,7 @@ class LessonTestCase(APITestCase):
                          [{'id': 1,
                            'name': 'Test lesson 1',
                            'description': None,
+                           'amount': 0,
                            'preview': 'http://testserver/lesson/non_lesson.png',
                            'url_video': None,
                            'course': 1,
