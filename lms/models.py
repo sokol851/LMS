@@ -19,6 +19,7 @@ class Course(models.Model):
         verbose_name="владелец",
         **NULLABLE,
     )
+    amount = models.IntegerField(default=0, verbose_name='Стоимость курса')
 
     def __str__(self):
         return f"{self.name}"
@@ -31,22 +32,12 @@ class Course(models.Model):
 class Lesson(models.Model):
     name = models.CharField(max_length=150, verbose_name="Название")
     description = models.TextField(verbose_name="Описание", **NULLABLE)
-    preview = models.ImageField(
-        upload_to="static/lesson/covers/",
-        default="lesson/non_lesson.png",
-        verbose_name="ПревьюУрока",
-        **NULLABLE,
-    )
+    preview = models.ImageField(upload_to="static/lesson/covers/", default="lesson/non_lesson.png",
+        verbose_name="ПревьюУрока", **NULLABLE)
     url_video = models.URLField(verbose_name="Ссылка на видео", **NULLABLE)
-    course = models.ForeignKey(
-        Course, on_delete=models.CASCADE, related_name="lessons", verbose_name="курс"
-    )
-    owner = models.ForeignKey(
-        settings.AUTH_USER_MODEL,
-        on_delete=models.CASCADE,
-        verbose_name="владелец",
-        **NULLABLE,
-    )
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name="lessons", verbose_name="курс")
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name="владелец", **NULLABLE)
+    amount = models.IntegerField(default=0, verbose_name='Стоимость урока')
 
     def __str__(self):
         return f"{self.name}"
