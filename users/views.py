@@ -12,7 +12,7 @@ from users.services import create_product, create_price, create_session
 
 @extend_schema(summary='Список оплат')
 class PaymentListAPIView(generics.ListAPIView):
-    """ Список оплат курсов """
+    """ Список оплат """
     serializer_class = PaymentSerializer
     queryset = Payment.objects.all()
     filter_backends = [DjangoFilterBackend, OrderingFilter]
@@ -24,7 +24,9 @@ class PaymentListAPIView(generics.ListAPIView):
     ordering_fields = ("data_payment",)
 
 
+@extend_schema(summary='Создание оплаты')
 class PaymentCreateAPIView(generics.CreateAPIView):
+    """ Создание оплаты """
     serializer_class = PaymentSerializer
     queryset = Payment.objects.all()
 
