@@ -1,3 +1,4 @@
+from django.core.exceptions import ValidationError
 from django_filters.rest_framework import DjangoFilterBackend
 from drf_spectacular.utils import extend_schema
 from rest_framework import generics
@@ -33,36 +34,24 @@ class PaymentCreateAPIView(generics.CreateAPIView):
     def perform_create(self, serializer):
         payment = serializer.save(user=self.request.user)
 
-        if payment.paid_type == 'Перевод':
-            if payment.paid_lesson:
-                lesson = Lesson.objects.get(id=payment.paid_lesson.id)
-                product = create_product(product=lesson.name)
-                price = create_price(product, lesson.amount)
-                payment.paid_summa = lesson.amount
-                session_id, payment_link = create_session(price)
-                payment.session_id = session_id
-                payment.link = payment_link
-                payment.save()
-
-            elif payment.paid_courses:
-                course = Course.objects.get(id=payment.paid_courses.id)
-                product = create_product(product=course.name)
-                price = create_price(product, course.amount)
-                payment.paid_summa = course.amount
-                session_id, payment_link = create_session(price)
-                payment.session_id = session_id
-                payment.link = payment_link
-                payment.save()
+        if payment.paid_lesson:
+            product = Lesson.objects.get(id=payment.paid_lesson.id)
+        elif payment.paid_courses:
+            product = Course.objects.get(id=payment.paid_courses.id)
         else:
-            if payment.paid_lesson:
-                lesson = Lesson.objects.get(id=payment.paid_lesson.id)
-                payment.paid_summa = lesson.amount
-                payment.save()
+            raise ValidationError('Course or Lesson needed')
 
-            elif payment.paid_courses:
-                course = Course.objects.get(id=payment.paid_courses.id)
-                payment.paid_summa = course.amount
-                payment.save()
+        if payment.paid_type == 'Перевод':
+            stripe_product = create_product(product=product.name)
+            stripe_price = create_price(stripe_product, product.amount)
+            payment.paid_summa = product.amount
+            session_id, payment_link = create_session(stripe_price)
+            payment.session_id = session_id
+            payment.link = payment_link
+            payment.save()
+        else:
+            payment.paid_summa = product.amount
+            payment.save()
 
 
 @extend_schema(summary='Список пользователей')
