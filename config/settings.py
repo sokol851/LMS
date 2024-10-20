@@ -157,6 +157,13 @@ CELERY_BROKER_URL = config("CELERY_BROKER_URL")
 CELERY_RESULT_BACKEND = config("CELERY_RESULT_BACKEND")
 CELERY_TIMEZONE = config("CELERY_TIMEZONE")
 CELERY_TASK_TRACK_STARTED = config('CELERY_TASK_TRACK_STARTED') == "True"
+CELERY_BEAT_SCHEDULE = {
+    'check_last_login': {
+        'task': 'lms.tasks.check_last_login',
+        'schedule': timedelta(days=1),
+    },
+}
+
 
 # Настройки почты
 EMAIL_HOST = config('EMAIL_HOST')
