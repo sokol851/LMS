@@ -9,6 +9,7 @@ from lms.models import Course, Lesson, Subscription
 from lms.paginators import CourseLessonPaginator
 from users.permissions import IsModerator, IsOwner
 from lms.serializers import CourseSerializer, LessonSerializer, SubscriptionSerializer
+from lms.tasks import sending_mail
 
 
 @extend_schema_view(
@@ -37,6 +38,11 @@ class CourseViewSet(viewsets.ModelViewSet):
         elif self.action == "destroy":
             self.permission_classes = [~IsModerator | IsOwner]
         return super().get_permissions()
+
+    def perform_update(self, serializer):
+        serializer.save()
+        course = self.get_object().pk
+        sending_mail.delay(course)
 
 
 @extend_schema(summary='Создание урока')
