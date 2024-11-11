@@ -27,7 +27,7 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG') == "True"
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 # Application definition
 
@@ -84,8 +84,12 @@ WSGI_APPLICATION = "config.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": config("BASE_ENGINE"),
-        "NAME": BASE_DIR / config("BASE_NAME"),
+        "ENGINE": config("POSTGRES_ENGINE"),
+        "NAME": config("POSTGRES_DB"),
+        "HOST": config("POSTGRES_HOST"),
+        "PORT": config("POSTGRES_PORT"),
+        "USER": config("POSTGRES_USER"),
+        "PASSWORD": config("POSTGRES_PASSWORD")
     }
 }
 
