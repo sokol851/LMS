@@ -84,7 +84,7 @@ WSGI_APPLICATION = "config.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": config("POSTGRES_ENGINE"),
+        "ENGINE": "django.db.backends.postgresql_psycopg2",
         "NAME": config("POSTGRES_DB"),
         "HOST": config("POSTGRES_HOST"),
         "PORT": config("POSTGRES_PORT"),
@@ -155,7 +155,6 @@ SPECTACULAR_SETTINGS = {
     'SERVE_INCLUDE_SCHEMA': False,
 }
 
-
 # Настройки для Celery
 CELERY_BROKER_URL = config("CELERY_BROKER_URL")
 CELERY_RESULT_BACKEND = config("CELERY_RESULT_BACKEND")
@@ -167,7 +166,6 @@ CELERY_BEAT_SCHEDULE = {
         'schedule': timedelta(days=1),
     },
 }
-
 
 # Настройки почты
 EMAIL_HOST = config('EMAIL_HOST')
